@@ -17,7 +17,7 @@ WORKDIR /src/DotnetApiPostgres.Api
 RUN dotnet tool install --global dotnet-ef
 
 # Додаємо шлях до інструмента до PATH
-ENV PATH=$PATH:/root/.dotnet/tools
+ENV PATH="${PATH}:/root/.dotnet/tools"
 
 # Будуємо проект
 RUN dotnet build -c Release -o /app/build
