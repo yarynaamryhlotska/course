@@ -6,16 +6,21 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.WebHost.UseUrls("http://0.0.0.0:80");
 
-string connectionString = builder.Configuration.GetConnectionString("default");
-builder.Services.AddDbContext<ApplicationDbContext>(op => op.UseNpgsql(connectionString));
+// Зчитуємо рядок підключення з конфігураційного файлу
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+// Налаштування контексту БД для підключення до PostgreSQL
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(connectionString)
+);
+
+// Регістрація сервісу для роботи з особами
 builder.Services.AddTransient<IPersonService, PersonService>();
-
 
 var app = builder.Build();
 
@@ -24,7 +29,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseHttpsRedirection();
 app.MapControllers();
+
+// Додавання маршруту для кореневої сторінки
+app.MapGet("/", () => "Welcome to DotnetApiPostgres API!");
+
 app.Run();
 
