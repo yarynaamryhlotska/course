@@ -18,7 +18,9 @@ RUN dotnet build -c Release -o /app/build
 
 # Встановлюємо інструмент dotnet-ef для міграцій
 RUN dotnet tool install --global dotnet-ef
-ENV PATH="${PATH}:/root/.dotnet/tools"
+#ENV PATH="${PATH}:/root/.dotnet/tools"
+# Додати інструменти dotnet в PATH
+ENV PATH="/root/.dotnet/tools:$PATH"
 
 # Публікуємо додаток
 RUN dotnet publish -c Release -o /app/publish
