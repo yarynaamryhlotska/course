@@ -34,7 +34,7 @@ app.UseHttpsRedirection();
 app.MapControllers();
 
 // Додавання маршруту для кореневої сторінки
-app.MapGet("/", () => "Welcome to DotnetApiPostgres API! Now with a new message! hello");
+app.MapGet("/", () => "Welcome to DotnetApiPostgres API! Now with a new message! i am Yarynax");
 
 app.Run();
 
