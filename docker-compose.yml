@@ -6,13 +6,14 @@ services:
       context: . # Корінь проекту
       dockerfile: Dockerfile
     ports:
-#      - "8081:80"
       - "8082:80"
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=PersonDb;Username=postgres;Password=password"
     depends_on:
       - db
+    networks:
+      - app_network
 
   db:
     image: postgres:15
@@ -24,7 +25,13 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - app_network
 
 volumes:
   pgdata:
+
+networks:
+  app_network:
+    driver: bridge
 
