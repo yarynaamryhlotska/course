@@ -29,7 +29,10 @@ services:
       - app_network
 
 volumes:
-  pgdata:
+  postgres_data:
+    driver: local
+#volumes:
+ # pgdata:
 
 networks:
   app_network:
