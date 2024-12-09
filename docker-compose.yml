@@ -6,7 +6,7 @@ services:
       context: . # Корінь проекту
       dockerfile: Dockerfile
     ports:
-      - "8081:80"
+#      - "8081:80"
       - "8082:80"
     environment:
       ASPNETCORE_ENVIRONMENT: Development
