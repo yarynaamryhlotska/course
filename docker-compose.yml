@@ -33,7 +33,10 @@ services:
     ports:
       - "8083:80"  # Порт для доступу через Nginx
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro  # Маунтимо конфігураційний файл nginx.conf
+       - /tmp/jenkins-nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+ # - /tmp/jenkins-nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+     # - /var/lib/jenkins/workspace/DotnetApiPostgres/nginx.conf:/etc/nginx/nginx.conf:ro
+     # - ./nginx.conf:/etc/nginx/nginx.conf:ro  # Маунтимо конфігураційний файл nginx.conf
     depends_on:
       - api  # Nginx залежить від API
     networks:
