@@ -10,7 +10,7 @@ public class PeopleControllerTests
     {
         _client = new HttpClient
         {
-            BaseAddress = new System.Uri("http://localhost:8081/")
+            BaseAddress = new System.Uri("http://localhost:8082/")
         };
     }
 
