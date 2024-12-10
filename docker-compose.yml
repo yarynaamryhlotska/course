@@ -6,46 +6,35 @@ services:
       context: . # Корінь проекту
       dockerfile: Dockerfile
     ports:
-      - "8082:80"  # Порт для доступу до API
+      - "8082:80"
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=PersonDb;Username=postgres;Password=password"  # Повна рядка з підключенням до бази даних
+      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=PersonDb;Username=postgres;Password=password"
     depends_on:
-      - db  # Залежність від бази даних
+      - db
     networks:
-      - app_network  # Вказано правильну мережу
+      - app_network
 
   db:
-    image: postgres:15  # Використовуємо офіційний образ Postgres
-    environment:      
-      POSTGRES_DB: PersonDb  # База даних
-      POSTGRES_USER: postgres  # Користувач
-      POSTGRES_PASSWORD: password  # Пароль
+    image: postgres:15
+    environment:
+      POSTGRES_DB: PersonDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
     ports:
-      - "5432:5432"  # Порт для доступу до бази даних
+      - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data  # Том для зберігання даних
+      - pgdata:/var/lib/postgresql/data
     networks:
-      - app_network  # Вказано правильну мережу
+      - app_network
 
-  nginx:
-    image: nginx:latest  # Використовуємо останню версію Nginx
-    ports:
-      - "8083:80"  # Порт для доступу через Nginx
-    volumes:
-       - /tmp/jenkins-nginx/nginx.conf:/etc/nginx/nginx.conf:ro
- # - /tmp/jenkins-nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-     # - /var/lib/jenkins/workspace/DotnetApiPostgres/nginx.conf:/etc/nginx/nginx.conf:ro
-     # - ./nginx.conf:/etc/nginx/nginx.conf:ro  # Маунтимо конфігураційний файл nginx.conf
-    depends_on:
-      - api  # Nginx залежить від API
-    networks:
-      - app_network  # Вказано правильну мережу
-
+#volumes:
+#  postgres_data:
+#    driver: local
 volumes:
-  pgdata:  # Том для бази даних
+  pgdata:
 
 networks:
   app_network:
-    driver: bridge  # Мережа для комунікації між контейнерами
+    driver: bridge
 
