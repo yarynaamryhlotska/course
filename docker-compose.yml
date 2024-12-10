@@ -34,7 +34,8 @@ services:
     ports:
       - "8084:80"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ${WORKSPACE}/nginx/nginx.conf:/etc/nginx/nginx.conf
+    #  - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     #  - ./nginx/nginx.conf:/etc/nginx/nginx.conf  # Використовуємо nginx.conf з поточної директорії
     networks:
       - app_network
